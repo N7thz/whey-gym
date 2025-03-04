@@ -21,6 +21,9 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
+			"complexity": {
+				"useOptionalChain": "off"
+			},
 			"a11y": {
 				"noSvgWithoutTitle": "off"
 			},

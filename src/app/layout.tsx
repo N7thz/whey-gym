@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { ThemeProvider } from "@/providers/theme-provider"
 import "./globals.css"
+import { cn } from "@/lib/utils"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,9 +29,10 @@ export default function RootLayout({
       lang="pt-BR"
       suppressHydrationWarning
     >
-      <body className={
-        `${geistSans.variable} ${geistMono.variable} antialiased`
-      }>
+      <body className={cn(
+        `${geistSans.variable} ${geistMono.variable} antialiased`,
+        "min-h-dvh flex"
+      )}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
