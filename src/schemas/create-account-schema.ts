@@ -2,14 +2,6 @@ import { z } from "zod"
 
 export const CreateAccountSchema = z
 	.object({
-		name: z
-			.string()
-			.min(6, {
-				message: "O campo deve ter no mínimo 6 caracteres",
-			})
-			.max(255, {
-				message: "Nome de usuário muito longo",
-			}),
 		email: z
 			.string()
 			.email({
