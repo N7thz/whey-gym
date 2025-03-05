@@ -26,9 +26,12 @@ export function useFormCreateAccount() {
 	const password = watch("password")
 	const confirm_password = watch("confirm_password")
 
-	const passwordsAreTheSame =
-		password !== "" && confirm_password !== "" && password === confirm_password
-
+	const passwordsAreTheSame = (
+		password !== "" &&
+		confirm_password !== "" &&
+		password === confirm_password
+	)
+	
 	function onSubmit({ email, password }: CreateAccountProps) {
 		http
 			.CreateAccount({ email, password })

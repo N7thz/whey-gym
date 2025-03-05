@@ -56,8 +56,15 @@ export function UserRespository() {
         })
     }
 
-    async function findByMany(): Promise<User[]> {
-        return await user.findMany()
+    async function findByMany(): Promise<{ users: User[], count: number }> {
+
+        const users = await user.findMany()
+        const count = await user.count()
+
+        return {
+            users,
+            count
+        }
     }
 
     return {

@@ -28,11 +28,11 @@ export const useHttp = () => {
 	}
 
 	function CreateAccount({ email, password }: CreateAccountRequest) {
-		return api.post("/create-account", { email, name, password })
+		return api.post("/create-account", { email, password })
 	}
 
 	function UpdateUser({ email, id }: UpdateUserRequest) {
-		return api.put<User>(`/users/${id}`, { email, name })
+		return api.put<User>(`/users/${id}`, { email })
 	}
 
 	function Inactivate(id: UUID) {

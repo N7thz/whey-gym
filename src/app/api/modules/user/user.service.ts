@@ -1,25 +1,26 @@
-import type { Prisma, User } from "@prisma/client"
+import type { Prisma } from "@prisma/client"
 import { UserRespository } from "./user.repository"
 import { hash } from "bcryptjs"
-import { Error, HttpStatus } from "@/@types"
-import { ErrorProps } from "next/error"
-import { userAgentFromString } from "next/server"
+import type { Error } from "@/@types"
+import { HttpStatus } from "@/@types/http-status"
+import { setUserResponse } from "@/functions/user-reponse"
+
 export function UserService() {
 
     const userRespository = UserRespository()
 
     async function create({
         email,
-        password: passwordText
+        password: passwordText,
     }: Prisma.UserCreateInput) {
 
-        const userExist = await findByEmail(email)
+        const { user: userExist } = await findByEmail(email)
 
         if (userExist) {
 
             const error: Error = {
-                message: "Error ao criar usuário",
-                statusCode: HttpStatus.CONFLICT
+                message: "Parece que já existe uma conta associada a este endereço de e-mail.",
+                statusCode: HttpStatus.CONFLICT,
             }
 
             return { error }
@@ -29,18 +30,62 @@ export function UserService() {
 
         const user = await userRespository.create({
             email,
-            password
+            password,
         })
+
+        const userResponse = setUserResponse(user)
+
+        return { userResponse }
+    }
+
+    async function findByEmail(email: string) {
+
+        const user = await userRespository.findByEmail(email)
+
+        if (!user) {
+
+            const error: Error = {
+                message: "Não foi possivel encontrar o usuário desejado.",
+                statusCode: HttpStatus.BAD_REQUEST,
+            }
+
+            return { error }
+        }
 
         return { user }
     }
 
-    async function findByEmail(email: string) {
-        return await userRespository.findByEmail(email)
+    async function findMany() {
+
+        const { count, users } = await userRespository.findByMany()
+
+        const usersResponse = users.map(user => setUserResponse(user))
+
+        return {
+            usersResponse,
+            count
+        }
+    }
+
+    async function validateId(id: string) {
+
+        const user = await userRespository.findById(id)
+
+        if (!user) {
+            const error: Error = {
+                message: "Não foi possivel encontrar o usuário desejado.",
+                statusCode: HttpStatus.BAD_REQUEST
+            }
+
+            return { error }
+        }
+
+        return { user }
     }
 
     return {
         create,
-        findByEmail
+        findByEmail,
+        findMany
     }
 }

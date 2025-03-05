@@ -1,24 +1,30 @@
 import { NextResponse, type NextRequest } from "next/server"
-import { UserService } from "../../modules/user/user.service"
-import { Prisma } from "@prisma/client"
-import { HttpStatus } from "@/@types"
+import { UserService } from "@modules/user/user.service"
+import { HttpStatus } from "@/@types/http-status"
+import type { Prisma } from "@prisma/client"
 
-export async function GET(request: NextRequest) {
+export async function GET() {
     return NextResponse.json("teste dos guri")
 }
 
 export async function POST(request: NextRequest) {
 
-    const { email, password } = await request.json() as Prisma.UserCreateInput
+    const { email, password } = (await request.json()) as Prisma.UserCreateInput
 
     const userService = UserService()
 
-    const { error, user } = await userService.create({ email, password })
+    const { 
+        error, 
+        userResponse 
+    } = await userService.create({ email, password })
 
-    if (error) return NextResponse.json(
-        error, {
-        status: HttpStatus.CONFLICT
+    if (error) return (
+        NextResponse.json(error, {
+            status: error.statusCode,
+        })
+    )
+
+    return NextResponse.json(userResponse, {
+        status: HttpStatus.CREATED
     })
-
-    return NextResponse.json(user)
 }
