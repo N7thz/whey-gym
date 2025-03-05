@@ -2,8 +2,9 @@ import type { SigninProps as SigninRequest } from "@/schemas/sign-in-schema"
 import type { CreateAccountProps } from "@/schemas/create-account-schema"
 import { getCookie } from "cookies-next"
 import type { User } from "@prisma/client"
-import type { UUID } from "@/@types"
+import type { UserResponse, UUID } from "@/@types"
 import axios from "axios"
+import type { UploadImageProps } from "@/schemas/upload-image-schema"
 
 const token = getCookie("token")
 
@@ -15,6 +16,10 @@ export const api = axios.create({
 })
 
 type SigninResponse = { acess_token: string }
+
+type UploadImageRequest = UploadImageProps & {
+	id: string
+}
 
 type CreateAccountRequest = Omit<CreateAccountProps, "confirm_password">
 
@@ -32,11 +37,15 @@ export const useHttp = () => {
 	}
 
 	function UpdateUser({ email, id }: UpdateUserRequest) {
-		return api.put<User>(`/users/${id}`, { email })
+		return api.put<UserResponse>(`/users/${id}`, { email })
+	}
+
+	function UploadImage({ id, imageUrl }: UploadImageRequest) {
+		return api.put<UserResponse>(`/upload-image/${id}`, { imageUrl })
 	}
 
 	function Inactivate(id: UUID) {
-		return api.put<User>(`/inactivate/${id}`)
+		return api.put<UserResponse>(`/inactivate/${id}`)
 	}
 
 	return {
@@ -44,5 +53,6 @@ export const useHttp = () => {
 		CreateAccount,
 		UpdateUser,
 		Inactivate,
+		UploadImage,
 	}
 }

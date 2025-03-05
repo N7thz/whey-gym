@@ -1,9 +1,8 @@
 import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar"
-import { Item } from "@/@types"
+import type { Item } from "@/@types"
 import Link from "next/link"
 
 export const AsideSidebarItem = ({ item }: { item: Item }) => {
-
 	const { Icon, title, url } = item
 
 	return (

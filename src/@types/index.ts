@@ -1,3 +1,4 @@
+import type { LucideIcon } from "lucide-react"
 import type { HttpStatus } from "./http-status"
 import type { Role } from "@prisma/client"
 
@@ -22,4 +23,10 @@ export type Payload = {
     }
     iat: number
     exp: number
+}
+
+export type Item = {
+    title: string
+    url: string
+    Icon: LucideIcon
 }

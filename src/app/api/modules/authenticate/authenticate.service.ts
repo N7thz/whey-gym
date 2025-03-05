@@ -51,8 +51,6 @@ export function AuthenticateService() {
 
     async function authenticate(authorization: string | null) {
 
-        console.log(authorization)
-
         if (!authorization || authorization === "") {
 
             const error: Error = {

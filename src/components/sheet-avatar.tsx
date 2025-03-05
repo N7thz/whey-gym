@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import {
 	Sheet,
@@ -6,15 +8,34 @@ import {
 	SheetFooter,
 	SheetHeader,
 	SheetTitle,
-	SheetTrigger
+	SheetTrigger,
 } from "@/components/ui/sheet"
 import { Avatar } from "./avatar"
 import { deleteCookie } from "cookies-next"
 import { useRouter } from "next/navigation"
+import { useQuery } from "@tanstack/react-query"
+import { api } from "@/http/api"
+import type { UserResponse } from "@/@types"
+import { FormUploadImage } from "./forms/form-upload-image"
 
 export const SheetAvatar = () => {
 
 	const { refresh } = useRouter()
+
+	const { data: user, isLoading } = useQuery({
+		queryKey: ["find-user"],
+		queryFn: async () => {
+			const { data } = await api.get<UserResponse>("/authenticate")
+
+			return data
+		},
+	})
+
+	if (!user || isLoading) return <p>Carregando...</p>
+
+	console.log(user)
+
+	const { email, imageUrl } = user
 
 	function signOut() {
 		deleteCookie("token")
@@ -22,10 +43,10 @@ export const SheetAvatar = () => {
 	}
 
 	return (
-		<Sheet>
+		<Sheet open>
 			<SheetTrigger>
 				<Avatar
-					src={null}
+					src={imageUrl}
 					alt="icon-image"
 				/>
 			</SheetTrigger>
@@ -34,15 +55,16 @@ export const SheetAvatar = () => {
 					<SheetHeader>
 						<SheetTitle>Opções</SheetTitle>
 						<SheetDescription>
-							Bem vindo nome
+							Bem vindo
+							<span className="mx-1">
+								{email}
+							</span>
 						</SheetDescription>
 					</SheetHeader>
+					<FormUploadImage />
 				</div>
 				<SheetFooter className="w-full">
-					<Button
-						className="w-full"
-						onClick={signOut}
-					>
+					<Button className="w-full" onClick={signOut}>
 						Sair
 					</Button>
 				</SheetFooter>
