@@ -1,5 +1,6 @@
 import type { MiddlewareConfig, NextRequest } from "next/server"
 import { NextResponse } from "next/server"
+import { api } from "./http/api"
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE = "/sign-in"
 
@@ -38,25 +39,25 @@ export async function middleware(request: NextRequest) {
 
 	if (authToken && !publicRoute) {
 
-		// const redirectUrl = request.nextUrl.clone()
+		const redirectUrl = request.nextUrl.clone()
 
-		// const response = await api
-		// 	.get("/authenticate", {
-		// 		headers: {
-		// 			Authorization: `Bearer ${authToken.value}`,
-		// 		}
-		// 	})
-		// 	.then(() => {
-		// 		return NextResponse.next()
-		// 	})
-		// 	.catch((err) => {
+		const response = await api
+			.get("/authenticate", {
+				headers: {
+					Authorization: `Bearer ${authToken.value}`,
+				}
+			})
+			.then(() => {
+				return NextResponse.next()
+			})
+			.catch((err) => {
 
-		// 		console.log(err)
+				console.log(err)
 
-		// 		return NextResponse.redirect(redirectUrl)
-		// 	})
+				return NextResponse.redirect(redirectUrl)
+			})
 
-		// return response
+		return response
 	}
 
 	return NextResponse.next()

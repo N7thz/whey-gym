@@ -2,7 +2,7 @@ import type { SigninProps as SigninRequest } from "@/schemas/sign-in-schema"
 import type { CreateAccountProps } from "@/schemas/create-account-schema"
 import { getCookie } from "cookies-next"
 import type { User } from "@prisma/client"
-import type { UUID } from "node:crypto"
+import type { UUID } from "@/@types"
 import axios from "axios"
 
 const token = getCookie("token")

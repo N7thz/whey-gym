@@ -1,4 +1,4 @@
-import type { Error } from "@/@types"
+import type { Error, Payload } from "@/@types"
 import type { Prisma } from "@prisma/client"
 import { HttpStatus } from "@/@types/http-status"
 import { UserService } from "@modules/user/user.service"
@@ -49,7 +49,37 @@ export function AuthenticateService() {
         return { acess_token: token }
     }
 
+    async function authenticate(authorization: string | null) {
+
+        console.log(authorization)
+
+        if (!authorization || authorization === "") {
+
+            const error: Error = {
+                message: "Não foi possive autenticar o usuário",
+                statusCode: HttpStatus.UNAUTHORIZED
+            }
+
+            return { error }
+        }
+
+        const token = authorization.slice(7)
+
+        const SECRET_JWT = process.env.SECRET_JWT
+
+        const {
+            sub: { id }
+        } = jwt.verify(token, SECRET_JWT) as unknown as Payload
+
+        const { error, userResponse } = await userService.findById(id)
+
+        if (error) return { error }
+
+        return { userResponse }
+    }
+
     return {
         login,
+        authenticate
     }
 }

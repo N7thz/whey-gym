@@ -1,6 +1,7 @@
-import type { UUID } from "node:crypto"
 import type { HttpStatus } from "./http-status"
 import type { Role } from "@prisma/client"
+
+export type UUID = `${string}-${string}-${string}-${string}-${string}`
 
 export type Error = {
     message: string

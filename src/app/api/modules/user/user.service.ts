@@ -38,6 +38,17 @@ export function UserService() {
         return { userResponse }
     }
 
+    async function findById(id: string) {
+
+        const { error, user } = await validateId(id)
+
+        if (error) return { error }
+
+        const userResponse = setUserResponse(user)
+
+        return { userResponse }
+    }
+
     async function findByEmail(email: string) {
 
         const user = await userRespository.findByEmail(email)
@@ -85,6 +96,7 @@ export function UserService() {
 
     return {
         create,
+        findById,
         findByEmail,
         findMany
     }
