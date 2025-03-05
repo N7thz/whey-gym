@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
 
     const { email, password } = (await request.json()) as Prisma.UserCreateInput
 
-    const { error, userResponse } = await authenticateService.login({
+    const { error, acess_token } = await authenticateService.login({
         email, password
     })
 
@@ -17,5 +17,5 @@ export async function POST(request: NextRequest) {
         })
     )
 
-    return NextResponse.json(userResponse)
+    return NextResponse.json({ acess_token })
 }

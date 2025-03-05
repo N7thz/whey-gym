@@ -1,9 +1,9 @@
 import type { Error } from "@/@types"
+import type { Prisma } from "@prisma/client"
 import { HttpStatus } from "@/@types/http-status"
 import { UserService } from "@modules/user/user.service"
 import { compare } from "bcryptjs"
-import type { Prisma } from "@prisma/client"
-import { setUserResponse } from "@/functions/user-reponse"
+import jwt from "jsonwebtoken"
 
 export function AuthenticateService() {
     const userService = UserService()
@@ -32,9 +32,21 @@ export function AuthenticateService() {
             return { error }
         }
 
-        const userResponse = setUserResponse(user)
+        const SECRET_JWT = process.env.SECRET_JWT
 
-        return { userResponse }
+        const payload = {
+            sub: {
+                id: user.id,
+                role: user.role
+            }
+        }
+
+        const token = jwt.sign(payload, SECRET_JWT, {
+            algorithm: "HS256",
+            expiresIn: "24h"
+        })
+
+        return { acess_token: token }
     }
 
     return {

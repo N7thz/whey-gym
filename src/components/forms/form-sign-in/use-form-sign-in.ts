@@ -21,27 +21,22 @@ export function useFormSignIn() {
 	const oneDayInSeconds = 24 * 60 * 60
 
 	function onSubmit({ email, password }: SigninProps) {
+		http
+			.Signin({ email, password })
+			.then(({ data: { acess_token } }) => {
 
-		setCookie("token", "testedosguri")
-		refresh()
+				setCookie("token", acess_token, { maxAge: oneDayInSeconds })
+				refresh()
+			})
+			.catch((err) => {
 
-		// http
-		// 	.Signin({ email, password })
-		// 	.then(({ data: { acess_token } }) => {
+				console.log(err)
 
-		// 		setCookie("token", acess_token, { maxAge: oneDayInSeconds })
-
-		// 		refresh()
-		// 	})
-		// 	.catch((err) => {
-
-		// 		console.log(err)
-
-		// 		toast({
-		// 			title: "Email ou senha incorretos.",
-		// 			variant: "error"
-		// 		})
-		// 	})
+				toast({
+					title: "Email ou senha incorretos.",
+					variant: "error"
+				})
+			})
 	}
 
 	return { methods, handleSubmit, onSubmit }
