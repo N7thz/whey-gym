@@ -5,7 +5,7 @@ import { DialogCalendar } from "@/components/dialog-calendar"
 import { Calendar } from "@/components/ui/calendar"
 import { ptBR } from "date-fns/locale"
 
-export const Main = () => {
+export const MainCalendar = () => {
 
 	const [isOpen, setIsOpen] = useState(false)
 	const [date, setDate] = useState<Date>(new Date())

@@ -32,7 +32,7 @@ export async function middleware(request: NextRequest) {
 	) {
 		const redirectUrl = request.nextUrl.clone()
 
-		redirectUrl.pathname = "/"
+		redirectUrl.pathname = "/calendar"
 
 		return NextResponse.redirect(redirectUrl)
 	}

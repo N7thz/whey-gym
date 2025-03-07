@@ -2,23 +2,38 @@
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { ErrorSpan } from "@/components/error-span"
 import {
     type UploadImageProps, UploadImageSchema,
 } from "@/schemas/upload-image-schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
-import Image from "next/image"
-import { Label } from "@/components/ui/label"
 import { cn } from "@/lib/utils"
-import { ErrorSpan } from "@/components/error-span"
+import { useHttp } from "@/http/api"
+import { toast } from "@/components/toast"
+import { QueryClient } from "@tanstack/react-query"
+import Image from "next/image"
 import Icon from "@/app/icon.png"
 
-export const FormUploadImage = () => {
+type FormUploadImageProps = {
+    id: string
+    oldImage: string | null
+    setIsOpen: (open: boolean) => void
+}
+
+export const FormUploadImage = ({
+    id, oldImage, setIsOpen
+}: FormUploadImageProps) => {
+
+    const http = useHttp()
+    const client = new QueryClient()
 
     const {
         watch,
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm<UploadImageProps>({
         resolver: zodResolver(UploadImageSchema)
@@ -26,8 +41,34 @@ export const FormUploadImage = () => {
 
     const imageUrl = watch("imageUrl")
 
-    function onSubmit(data: UploadImageProps) {
-        console.log(data)
+    function onSubmit({ imageUrl }: UploadImageProps) {
+        http
+            .UploadImage({ id, imageUrl })
+            .then(() => {
+
+                setIsOpen(false)
+
+                toast({
+                    title: "A imagem fio atualizada com sucesso.",
+                    variant: "sucess",
+                    position: "bottom-left"
+                })
+
+                client.invalidateQueries({
+                    queryKey: "find-user"
+                })
+            })
+            .catch(err => {
+                console.log(err)
+
+                reset({ imageUrl: undefined })
+
+                toast({
+                    title: "Erro ao atualizar a imagem.",
+                    variant: "error",
+                    position: "bottom-left"
+                })
+            })
     }
 
     const { success } = UploadImageSchema.safeParse({ imageUrl })
@@ -35,7 +76,7 @@ export const FormUploadImage = () => {
     return (
         <>
             <Image
-                src={success ? imageUrl : Icon}
+                src={(oldImage && !imageUrl) ? oldImage : success ? imageUrl : Icon}
                 width={200}
                 height={200}
                 alt="image-icon-preview"
@@ -56,9 +97,9 @@ export const FormUploadImage = () => {
                     />
                 </Label>
                 {errors.imageUrl && (
-                    <ErrorSpan 
-                    message={errors.imageUrl.message} 
-                    className="text-lg"
+                    <ErrorSpan
+                        message={errors.imageUrl.message}
+                        className="text-lg"
                     />
                 )}
                 <Button

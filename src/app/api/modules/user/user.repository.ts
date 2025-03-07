@@ -10,6 +10,11 @@ type InactivateInput = {
     isActive: boolean
 }
 
+export type UpdateImage = {
+    id: string
+    imageUrl: string
+}
+
 export function UserRespository() {
 
     const user = prisma.user
@@ -26,6 +31,17 @@ export function UserRespository() {
                 id: id
             },
             data: userInput
+        })
+    }
+
+    async function updateImage({ id, imageUrl }: UpdateImage): Promise<User> {
+        return await user.update({
+            where: {
+                id: id
+            },
+            data: {
+                imageUrl
+            }
         })
     }
 
@@ -70,6 +86,7 @@ export function UserRespository() {
     return {
         create,
         update,
+        updateImage,
         inactivate,
         findById,
         findByEmail,

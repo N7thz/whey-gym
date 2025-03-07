@@ -1,12 +1,12 @@
 import { CheckCircle, XCircle } from "lucide-react"
-import { toast as toastPrimitive } from "sonner"
+import { toast as toastPrimitive, type ToasterProps } from "sonner"
 
-interface ToastProps {
+type ToastProps = ToasterProps & {
 	title: string
 	variant: "sucess" | "error"
 }
 
-export const toast = ({ title, variant }: ToastProps) =>
+export const toast = ({ title, variant, ...props }: ToastProps) =>
 	toastPrimitive(title, {
 		icon:
 			variant === "sucess" ? (
@@ -21,4 +21,5 @@ export const toast = ({ title, variant }: ToastProps) =>
 			border: "1px 1px 1px",
 			borderColor: variant === "sucess" ? "green" : "red",
 		},
+		...props
 	})

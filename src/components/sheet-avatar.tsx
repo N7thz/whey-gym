@@ -17,8 +17,11 @@ import { useQuery } from "@tanstack/react-query"
 import { api } from "@/http/api"
 import type { UserResponse } from "@/@types"
 import { FormUploadImage } from "./forms/form-upload-image"
+import { useState } from "react"
 
 export const SheetAvatar = () => {
+
+	const [isOpen, setIsOpen] = useState(false)
 
 	const { refresh } = useRouter()
 
@@ -35,7 +38,7 @@ export const SheetAvatar = () => {
 
 	console.log(user)
 
-	const { email, imageUrl } = user
+	const { id, email, imageUrl } = user
 
 	function signOut() {
 		deleteCookie("token")
@@ -43,7 +46,10 @@ export const SheetAvatar = () => {
 	}
 
 	return (
-		<Sheet open>
+		<Sheet
+			open={isOpen}
+			onOpenChange={setIsOpen}
+		>
 			<SheetTrigger>
 				<Avatar
 					src={imageUrl}
@@ -61,7 +67,11 @@ export const SheetAvatar = () => {
 							</span>
 						</SheetDescription>
 					</SheetHeader>
-					<FormUploadImage />
+					<FormUploadImage
+						id={id}
+						oldImage={imageUrl}
+						setIsOpen={setIsOpen}
+					/>
 				</div>
 				<SheetFooter className="w-full">
 					<Button className="w-full" onClick={signOut}>
