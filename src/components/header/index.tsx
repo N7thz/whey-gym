@@ -1,7 +1,7 @@
 "use client"
 
 import { SidebarTrigger } from "@/components/header/sidebar-trigger"
-import { SheetAvatar } from "@/components/sheet-avatar"
+import { SheetAvatar } from "@/components/header/sheet-avatar"
 
 export const Header = () => {
 	return (

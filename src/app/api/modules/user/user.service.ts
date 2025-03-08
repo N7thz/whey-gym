@@ -4,6 +4,7 @@ import { hash } from "bcryptjs"
 import type { Error } from "@/@types"
 import { HttpStatus } from "@/@types/http-status"
 import { setUserResponse } from "@/functions/user-reponse"
+import { UploadImageSchema } from "@/schemas/upload-image-schema"
 
 export function UserService() {
     const userRespository = UserRespository()
@@ -37,7 +38,20 @@ export function UserService() {
     }
 
     async function updateImage({ id, imageUrl }: UpdateImage) {
+
         const { error } = await validateId(id)
+
+        const { error: imageError } = UploadImageSchema.safeParse({ imageUrl })
+
+        if (imageError) {
+
+            const error: Error = {
+                message: "url inválida",
+                statusCode: HttpStatus.BAD_REQUEST
+            }
+
+            return { error }
+        }
 
         if (error) return { error }
 

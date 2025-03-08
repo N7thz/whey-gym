@@ -3,7 +3,7 @@
 import { CardContent } from "@/components/ui/card"
 import { Form } from "@/components/forms/form-primitive"
 import { ErrorSpan } from "@/components/error-span"
-import { useFormCreateAccount } from "./use-form-create-account"
+import { useCreateAccount } from "./use-create-account"
 import { LabelPassword } from "../label-password"
 import { LabelEmail } from "../label-email"
 
@@ -15,7 +15,7 @@ export const FormCreateAccount = () => {
 		passwordsAreTheSame,
 		handleSubmit,
 		onSubmit
-	} = useFormCreateAccount()
+	} = useCreateAccount()
 
 	return (
 		<CardContent>

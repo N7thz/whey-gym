@@ -6,8 +6,8 @@ import { setCookie } from "cookies-next"
 import { useRouter } from "next/navigation"
 import { toast } from "@/components/toast"
 
-export function useFormSignIn() {
-	
+export function useSignIn() {
+
 	const http = useHttp()
 
 	const { refresh } = useRouter()

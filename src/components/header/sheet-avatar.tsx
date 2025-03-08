@@ -10,40 +10,17 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@/components/ui/sheet"
-import { Avatar } from "./avatar"
-import { deleteCookie } from "cookies-next"
-import { useRouter } from "next/navigation"
-import { useQuery } from "@tanstack/react-query"
-import { api } from "@/http/api"
-import type { UserResponse } from "@/@types"
-import { FormUploadImage } from "./forms/form-upload-image"
-import { useState } from "react"
+import { Avatar } from "../avatar"
+import { FormUploadImage } from "../forms/form-upload-image"
+import { useHeader } from "./use-header"
 
 export const SheetAvatar = () => {
 
-	const [isOpen, setIsOpen] = useState(false)
+	const { user, isLoading, isOpen, setIsOpen, signOut } = useHeader()
 
-	const { refresh } = useRouter()
-
-	const { data: user, isLoading } = useQuery({
-		queryKey: ["find-user"],
-		queryFn: async () => {
-			const { data } = await api.get<UserResponse>("/authenticate")
-
-			return data
-		},
-	})
-
-	if (!user || isLoading) return <p>Carregando...</p>
-
-	console.log(user)
+	if (!user || isLoading) return <Avatar src={null} />
 
 	const { id, email, imageUrl } = user
-
-	function signOut() {
-		deleteCookie("token")
-		refresh()
-	}
 
 	return (
 		<Sheet

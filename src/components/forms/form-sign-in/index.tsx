@@ -3,11 +3,11 @@
 import { CardContent } from "@/components/ui/card"
 import { Form } from "@/components/forms/form-primitive"
 import { LabelPassword } from "../label-password"
-import { useFormSignIn } from "./use-form-sign-in"
+import { useSignIn } from "./use-sign-in"
 import { LabelEmail } from "../label-email"
 
 export const FormSignin = () => {
-	const { methods, handleSubmit, onSubmit } = useFormSignIn()
+	const { methods, handleSubmit, onSubmit } = useSignIn()
 
 	return (
 		<CardContent>

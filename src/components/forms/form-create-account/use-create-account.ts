@@ -8,7 +8,7 @@ import {
 } from "@/schemas/create-account-schema"
 import { toast } from "@/components/toast"
 
-export function useFormCreateAccount() {
+export function useCreateAccount() {
 
 	const http = useHttp()
 	const { push } = useRouter()
@@ -31,7 +31,7 @@ export function useFormCreateAccount() {
 		confirm_password !== "" &&
 		password === confirm_password
 	)
-	
+
 	function onSubmit({ email, password }: CreateAccountProps) {
 		http
 			.CreateAccount({ email, password })
