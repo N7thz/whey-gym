@@ -1,15 +1,40 @@
-import { Card } from "@/components/ui/card"
+"use client"
+
+import type { GetResponse, Training } from "@/@types"
+import { api } from "@/http/api"
+import { useQuery } from "@tanstack/react-query"
+import { Card } from "../ui/card"
 
 export const MainList = () => {
+
+	const { data, isLoading } = useQuery({
+		queryKey: ["find-many-trainigs-by-user-id"],
+		queryFn: async () => {
+
+			const { data } = await api.get<GetResponse<Training>>("/trainings")
+
+			return data
+		},
+	})
+
+	if (!data || isLoading) return <p>Carregando...</p>
+
+	const { count, data: trainigs } = data
+
+	console.log(trainigs)
+
 	return (
 		<div className="space-y-3">
-			{
-				Array.from({ length: 7 }).map((_, index) => (
-					<Card key={index} className="px-2">
-						Lorem ipsum dolor sit amet. {index}
-					</Card>
-				))
-			}
+			{count}
+			<div>
+				{
+					trainigs.map(({ id, name }) => (
+						<Card key={id}>
+							{id}
+						</Card>
+					))
+				}
+			</div>
 		</div>
 	)
 }

@@ -3,6 +3,7 @@ import type { Prisma } from "@prisma/client"
 import { HttpStatus } from "@/@types/http-status"
 import { UserService } from "@modules/user/user.service"
 import { compare } from "bcryptjs"
+import { decodeToken } from "@/functions/decode-token"
 import jwt from "jsonwebtoken"
 
 export function AuthenticateService() {
@@ -51,23 +52,14 @@ export function AuthenticateService() {
 
     async function authenticate(authorization: string | null) {
 
-        if (!authorization || authorization === "") {
-
-            const error: Error = {
-                message: "Não foi possive autenticar o usuário",
-                statusCode: HttpStatus.UNAUTHORIZED
-            }
-
-            return { error }
-        }
-
-        const token = authorization.slice(7)
-
-        const SECRET_JWT = process.env.SECRET_JWT
-
         const {
-            sub: { id }
-        } = jwt.verify(token, SECRET_JWT) as unknown as Payload
+            error: tokenError,
+            payload
+        } = decodeToken(authorization)
+
+        if (tokenError) return { tokenError }
+
+        const id = payload.sub.id
 
         const { error, userResponse } = await userService.findById(id)
 

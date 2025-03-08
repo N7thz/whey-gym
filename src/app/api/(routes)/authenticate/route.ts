@@ -1,13 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server"
 import type { Prisma } from "@prisma/client"
-import type { Payload } from "@/@types"
 import { AuthenticateService } from "@modules/authenticate/authenticate.service"
-import { UserService } from "@modules/user/user.service"
-import jwt from "jsonwebtoken"
 
 export async function GET(request: NextRequest) {
 
-    const userService = UserService()
     const authenticateService = AuthenticateService()
 
     const authorization = request.headers.get("authorization")

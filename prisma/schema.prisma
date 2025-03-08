@@ -26,9 +26,9 @@ model Training {
   id        String     @id @default(uuid())
   name      String
   madeIn    DateTime   @default(now()) @map("made_in")
-  obs       String
-  userId    String
-  user      User       @relation(fields: [userId], references: [id])
+  obs       String?
+  userId    String     @map("user_id")
+  user      User?      @relation(fields: [userId], references: [id])
   exercises Exercise[]
 
   @@map("trainings")
@@ -39,8 +39,9 @@ model Exercise {
   name       String
   series     Int
   reps       Int
-  trainingId String?
-  Training   Training? @relation(fields: [trainingId], references: [id])
+  ToFailure  Boolean   @default(false) @map("to_failure")
+  trainingId String?   @map("training_id")
+  Training   Training? @relation(fields: [trainingId], references: [id], onDelete: Cascade)
 
   @@map("exercises")
 }
