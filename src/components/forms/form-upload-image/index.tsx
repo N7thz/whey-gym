@@ -30,7 +30,7 @@ export const FormUploadImage = ({
                 width={200}
                 height={200}
                 alt="image-icon-preview"
-                className="mx-auto rounded-full"
+                className="mx-auto rounded-full aspect-square"
             />
             <form
                 onSubmit={handleSubmit(onSubmit)}
