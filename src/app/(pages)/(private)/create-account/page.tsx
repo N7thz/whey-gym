@@ -8,6 +8,11 @@ import {
 	CardDescription,
 } from "@/components/ui/card"
 import { Toaster } from "@/components/ui/sonner"
+import type { Metadata } from "next/types"
+
+export const metadata: Metadata = {
+	title: "Whey Gym | Criação de usuário",
+}
 
 export default function CreateAccount() {
 	return (

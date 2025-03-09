@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form"
-import { type SigninProps, signinSchema } from "@/schemas/sign-in-schema"
+import { type SigninProps, SigninSchema } from "@/schemas/sign-in-schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useHttp } from "@/http/api"
 import { setCookie } from "cookies-next"
@@ -13,7 +13,7 @@ export function useSignIn() {
 	const { refresh } = useRouter()
 
 	const methods = useForm<SigninProps>({
-		resolver: zodResolver(signinSchema),
+		resolver: zodResolver(SigninSchema),
 	})
 
 	const { handleSubmit } = methods

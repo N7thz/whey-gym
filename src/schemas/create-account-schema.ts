@@ -7,7 +7,7 @@ export const CreateAccountSchema = z.object({
 			message: "E-mail inválido",
 		})
 		.max(255, {
-			message: "Nome de usuário muito longo",
+			message: "E-mail muito longo",
 		}),
 	password: z
 		.string()

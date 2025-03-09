@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const signinSchema = z.object({
+export const SigninSchema = z.object({
 	email: z
 		.string()
 		.email({
@@ -19,4 +19,4 @@ export const signinSchema = z.object({
 		}),
 })
 
-export type SigninProps = z.infer<typeof signinSchema>
+export type SigninProps = z.infer<typeof SigninSchema>

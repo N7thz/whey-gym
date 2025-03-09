@@ -1,8 +1,8 @@
 import { api } from "./api"
-import type { UploadImageProps } from "@/schemas/upload-image-schema"
 import type { UserResponse } from "@/@types"
+import type { UpdateUserProps } from "@/schemas/update-user-schema"
 
-type UploadImageRequest = UploadImageProps & {
+type UploadImageRequest = UpdateUserProps & {
     id: string
 }
 

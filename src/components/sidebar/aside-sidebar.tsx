@@ -1,6 +1,10 @@
 import {
-	Calendar, LayoutPanelLeft, Search, Settings, UserRoundPlus,
-	UsersRound
+	Calendar,
+	LayoutPanelLeft,
+	Search,
+	Settings,
+	UserRoundPlus,
+	UsersRound,
 } from "lucide-react"
 import {
 	Sidebar,
@@ -11,7 +15,7 @@ import {
 	SidebarMenu,
 } from "@/components/ui/sidebar"
 import { AsideSidebarItem } from "./aside-sidebar-item"
-import { Item } from "@/@types"
+import type { Item } from "@/@types"
 
 const items: Item[] = [
 	{
@@ -41,7 +45,7 @@ const items: Item[] = [
 	},
 	{
 		title: "Settings",
-		url: "#",
+		url: "/settings",
 		Icon: Settings,
 	},
 ]
@@ -55,13 +59,15 @@ export const AsideSidebar = () => {
 						Opções do aplicativo
 					</SidebarGroupLabel>
 					<SidebarGroupContent>
-						<SidebarMenu title="Criar novo usuário">
-							{items.map((item) => (
-								<AsideSidebarItem
-									key={item.title}
-									item={item}
-								/>
-							))}
+						<SidebarMenu>
+							{
+								items.map(item => (
+									<AsideSidebarItem
+										key={item.title}
+										item={item}
+									/>
+								))
+							}
 						</SidebarMenu>
 					</SidebarGroupContent>
 				</SidebarGroup>
