@@ -1,21 +1,7 @@
-"use client"
+import { Card } from "@/components/ui/card"
+import type { MainProps } from "./main-layout"
 
-import type { GetResponse, Training } from "@/@types"
-import { api } from "@/http/api"
-import { useQuery } from "@tanstack/react-query"
-import { Card } from "../ui/card"
-
-export const MainList = () => {
-
-	const { data, isLoading } = useQuery({
-		queryKey: ["find-many-trainigs-by-user-id"],
-		queryFn: async () => {
-
-			const { data } = await api.get<GetResponse<Training>>("/trainings")
-
-			return data
-		},
-	})
+export const MainList = ({ data, isLoading }: MainProps) => {
 
 	if (!data || isLoading) return <p>Carregando...</p>
 
@@ -27,13 +13,9 @@ export const MainList = () => {
 		<div className="space-y-3">
 			{count}
 			<div>
-				{
-					trainigs.map(({ id, name }) => (
-						<Card key={id}>
-							{id}
-						</Card>
-					))
-				}
+				{trainigs.map(({ id, name }) => (
+					<Card key={id}>{id}</Card>
+				))}
 			</div>
 		</div>
 	)

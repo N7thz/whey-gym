@@ -4,9 +4,10 @@ import { useState } from "react"
 import { DialogCalendar } from "@/components/dialog-calendar"
 import { Calendar } from "@/components/ui/calendar"
 import { ptBR } from "date-fns/locale"
+import type { MainProps } from "./main-layout"
 
-export const MainCalendar = () => {
-
+export const MainCalendar = ({ data, isLoading }: MainProps) => {
+	
 	const [isOpen, setIsOpen] = useState(false)
 	const [date, setDate] = useState<Date>(new Date())
 
@@ -26,8 +27,8 @@ export const MainCalendar = () => {
 					head_cell: "w-full capitalize",
 					cell: "h-32 w-full border border-border rounded-lg mx-1 cursor-pointer hover:scale-95 duration-300 p-1.5",
 				}}
-				onDayClick={(date) => {
-					setIsOpen((oldValue) => !oldValue)
+				onDayClick={date => {
+					setIsOpen(oldValue => !oldValue)
 					setDate(date)
 				}}
 			/>
