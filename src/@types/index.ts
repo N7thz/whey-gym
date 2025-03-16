@@ -27,10 +27,10 @@ export type Item = {
 }
 
 export type GetResponse<T> = {
-    data: T[];
-    count: number;
+    data: T[]
+    count: number
 }
 
-export type TrainingWithExercise = Training & { 
-    exercises: Exercise[] 
+export type TrainingWithExercise = Training & {
+    exercises: Exercise[]
 }
