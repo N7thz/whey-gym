@@ -5,7 +5,7 @@ type UserUpdateInput = Prisma.UserUpdateInput & {
     id: string
 }
 
-type InactivateInput = {
+type removeInput = {
     id: string
     isActive: boolean
 }
@@ -19,25 +19,25 @@ export function UserRespository() {
 
     const user = prisma.user
 
-    async function create(userInput: Prisma.UserCreateInput): Promise<User> {
+    async function create(userInput: Prisma.UserCreateInput) {
         return await user.create({
             data: userInput
         })
     }
 
-    async function update({ id, ...userInput }: UserUpdateInput): Promise<User> {
+    async function update({ id, ...userInput }: UserUpdateInput) {
         return await user.update({
             where: {
-                id: id
+                id
             },
             data: userInput
         })
     }
 
-    async function updateImage({ id, imageUrl }: UpdateImage): Promise<User> {
+    async function updateImage({ id, imageUrl }: UpdateImage) {
         return await user.update({
             where: {
-                id: id
+                id
             },
             data: {
                 imageUrl
@@ -45,18 +45,15 @@ export function UserRespository() {
         })
     }
 
-    async function inactivate({ id, isActive }: InactivateInput): Promise<User> {
-        return await user.update({
+    async function remove(id: string) {
+        return await user.delete({
             where: {
-                id: id
-            },
-            data: {
-                isActive: !isActive
+                id
             }
         })
     }
 
-    async function findById(id: string): Promise<User | null> {
+    async function findById(id: string) {
         return await user.findUnique({
             where: {
                 id
@@ -64,7 +61,7 @@ export function UserRespository() {
         })
     }
 
-    async function findByEmail(email: string): Promise<User | null> {
+    async function findByEmail(email: string) {
         return await user.findUnique({
             where: {
                 email
@@ -72,7 +69,7 @@ export function UserRespository() {
         })
     }
 
-    async function findByMany(): Promise<{ users: User[], count: number }> {
+    async function findByMany() {
 
         const users = await user.findMany()
         const count = await user.count()
@@ -87,7 +84,7 @@ export function UserRespository() {
         create,
         update,
         updateImage,
-        inactivate,
+        remove,
         findById,
         findByEmail,
         findByMany

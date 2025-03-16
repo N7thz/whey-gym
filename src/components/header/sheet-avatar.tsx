@@ -13,9 +13,11 @@ import {
 import { Avatar } from "../avatar"
 import { FormUploadImage } from "../forms/form-upload-image"
 import { useHeader } from "./use-header"
+import { useRouter } from "next/navigation"
 
 export const SheetAvatar = () => {
-
+	
+	const { refresh } = useRouter()
 	const { user, isLoading, isOpen, setIsOpen, signOut } = useHeader()
 
 	if (!user || isLoading) return <Avatar src={null} />
@@ -51,7 +53,7 @@ export const SheetAvatar = () => {
 					/>
 				</div>
 				<SheetFooter className="w-full">
-					<Button className="w-full" onClick={signOut}>
+					<Button className="w-full" onClick={() => signOut(refresh)}>
 						Sair
 					</Button>
 				</SheetFooter>

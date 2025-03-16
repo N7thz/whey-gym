@@ -3,6 +3,8 @@ import { UserService } from "@modules/user/user.service"
 import { HttpStatus } from "@/@types/http-status"
 import type { Prisma } from "@prisma/client"
 
+const userService = UserService()
+
 export async function GET() {
     return NextResponse.json("teste dos guri")
 }
@@ -10,8 +12,6 @@ export async function GET() {
 export async function POST(request: NextRequest) {
 
     const { email, password } = (await request.json()) as Prisma.UserCreateInput
-
-    const userService = UserService()
 
     const { 
         error, 

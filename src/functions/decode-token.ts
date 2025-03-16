@@ -1,11 +1,10 @@
-import type { Error, Payload } from "@/@types"
+import type { Error as ErrorTyoe, Payload } from "@/@types"
 import { HttpStatus } from "@/@types/http-status"
 import jwt from "jsonwebtoken"
 
 export function decodeToken(authorization: string | null) {
-
     if (!authorization || authorization === "") {
-        const error: Error = {
+        const error: ErrorTyoe = {
             message: "Não foi possive autenticar o usuário",
             statusCode: HttpStatus.UNAUTHORIZED,
         }

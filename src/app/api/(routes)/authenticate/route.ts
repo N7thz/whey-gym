@@ -2,9 +2,9 @@ import { type NextRequest, NextResponse } from "next/server"
 import type { Prisma } from "@prisma/client"
 import { AuthenticateService } from "@modules/authenticate/authenticate.service"
 
-export async function GET(request: NextRequest) {
+const authenticateService = AuthenticateService()
 
-    const authenticateService = AuthenticateService()
+export async function GET(request: NextRequest) {
 
     const authorization = request.headers.get("authorization")
 
@@ -22,7 +22,6 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
-    const authenticateService = AuthenticateService()
 
     const { email, password } = (await request.json()) as Prisma.UserCreateInput
 

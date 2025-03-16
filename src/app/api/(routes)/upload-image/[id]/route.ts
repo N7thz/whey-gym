@@ -7,13 +7,14 @@ type ContextProps = {
     }
 }
 
+const userService = UserService()
+
 export async function PUT(
-    request: NextRequest, { params: { id } }: ContextProps
+    request: NextRequest, 
+    { params: { id } }: ContextProps
 ) {
 
     const { imageUrl } = await request.json() as { imageUrl: string }
-
-    const userService = UserService()
 
     const {
         error, userResponse

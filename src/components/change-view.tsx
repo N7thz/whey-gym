@@ -8,9 +8,7 @@ import { useParams, useRouter } from "next/navigation"
 export const ChangeView = () => {
 
     const { push } = useRouter()
-    const { view } = useParams() as {
-        view: "calendar" | "list"
-    }
+    const { view } = useParams<{ view: "calendar" | "list" }>()
 
     return (
         <RadioGroup

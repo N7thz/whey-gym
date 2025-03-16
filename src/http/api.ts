@@ -1,8 +1,8 @@
 
 import axios from "axios"
-import { getCookie } from "cookies-next"
+import { getCookie } from "cookies-next/client"
 import { CreateAccount } from "./create-account.api"
-import { Inactivate } from "./inactivate.api"
+import { remove } from "./remove.api"
 import { Signin } from "./sign-in.api"
 import { UpdateUser } from "./update-user.api"
 import { UploadImage } from "./upload-image.api"
@@ -23,7 +23,7 @@ export const useHttp = () => {
 		Signin,
 		CreateAccount,
 		UpdateUser,
-		Inactivate,
+		remove,
 		UploadImage,
 		FindUser,
 		FindManyTrainigsByUserId

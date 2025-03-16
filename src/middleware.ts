@@ -13,11 +13,21 @@ export async function middleware(request: NextRequest) {
 	const publicRoute = publicRoutes.find((route) => route.path === path)
 	const authToken = request.cookies.get("token")
 
+	if (path === "/") {
+
+		const redirectUrl = request.nextUrl.clone()
+
+		redirectUrl.pathname = "/calendar"
+
+		return NextResponse.redirect(redirectUrl)
+	}
+
 	if (!authToken && publicRoute) {
 		return NextResponse.next()
 	}
 
 	if (!authToken && !publicRoute) {
+
 		const redirectUrl = request.nextUrl.clone()
 
 		redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED_ROUTE

@@ -2,12 +2,13 @@ import { useForm } from "react-hook-form"
 import { type SigninProps, SigninSchema } from "@/schemas/sign-in-schema"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useHttp } from "@/http/api"
-import { setCookie } from "cookies-next"
+import { setCookie } from "cookies-next/client"
 import { useRouter } from "next/navigation"
 import { toast } from "@/components/toast"
+import type { Payload } from "@/@types"
+import jwt from "jsonwebtoken"
 
 export function useSignIn() {
-
 	const http = useHttp()
 
 	const { refresh } = useRouter()
@@ -24,17 +25,15 @@ export function useSignIn() {
 		http
 			.Signin({ email, password })
 			.then(({ data: { acess_token } }) => {
-
 				setCookie("token", acess_token, { maxAge: oneDayInSeconds })
 				refresh()
 			})
-			.catch((err) => {
-
+			.catch(err => {
 				console.log(err)
 
 				toast({
 					title: "Email ou senha incorretos.",
-					variant: "error"
+					variant: "error",
 				})
 			})
 	}

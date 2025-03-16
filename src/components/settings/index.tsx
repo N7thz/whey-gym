@@ -5,10 +5,9 @@ import {
 } from "@/components/ui/card"
 import { Avatar } from "@/components/avatar"
 import { Separator } from "@/components/ui/separator"
-import { Button } from "@/components/ui/button"
 import { useCurrentUser } from "@/providers/user-provider"
-import { UserRoundPen, UserRoundX } from "lucide-react"
 import { DialogUpdateUser } from "./dialog-update-user"
+import { DialogremoveUser } from "./dialog-remove-user"
 
 export const Settings = () => {
 
@@ -47,10 +46,7 @@ export const Settings = () => {
                     </CardHeader>
                     <CardFooter className="w-full gap-2 justify-between">
                         <DialogUpdateUser />
-                        <Button>
-                            <UserRoundX />
-                            Excluir Conta
-                        </Button>
+                        <DialogremoveUser />
                     </CardFooter>
                 </div>
             </Card>

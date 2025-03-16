@@ -3,11 +3,11 @@ import { TrainingService } from "@modules/training/training.service"
 import type { CreateTrainingProps } from "@/schemas/create-training-schema"
 import { decodeToken } from "@/functions/decode-token"
 
+const trainingService = TrainingService()
+
 export async function GET(request: NextRequest) {
 
     const authorization = request.headers.get("authorization")
-
-    const trainingService = TrainingService()
 
     const { error, payload } = decodeToken(authorization)
 
@@ -31,8 +31,6 @@ export async function POST(request: NextRequest) {
     const authorization = request.headers.get("authorization")
 
     const { name, obs, exercises } = await request.json() as CreateTrainingProps
-
-    const trainingService = TrainingService()
 
     const { error, payload } = decodeToken(authorization)
 

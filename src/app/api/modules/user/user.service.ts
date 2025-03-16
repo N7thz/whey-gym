@@ -7,6 +7,7 @@ import { setUserResponse } from "@/functions/user-reponse"
 import { UploadImageSchema } from "@/schemas/upload-image-schema"
 
 export function UserService() {
+    
     const userRespository = UserRespository()
 
     async function create({
@@ -35,6 +36,17 @@ export function UserService() {
         const userResponse = setUserResponse(user)
 
         return { userResponse }
+    }
+
+    async function remove(id: string) {
+
+        const { error } = await validateId(id)
+
+        if (error) return { error }
+
+        const user = await userRespository.remove(id)
+
+        return { user }
     }
 
     async function updateImage({ id, imageUrl }: UpdateImage) {
@@ -99,9 +111,11 @@ export function UserService() {
     }
 
     async function validateId(id: string) {
+        
         const user = await userRespository.findById(id)
 
         if (!user) {
+
             const error: Error = {
                 message: "Não foi possivel encontrar o usuário desejado.",
                 statusCode: HttpStatus.BAD_REQUEST,
@@ -115,6 +129,7 @@ export function UserService() {
 
     return {
         create,
+        remove,
         findById,
         findByEmail,
         findMany,
