@@ -1,6 +1,6 @@
 "use client"
 
-import { MainCalendar } from "@/components/main/main-calendar"
+import { MainCalendar } from "@/components/calendar/main-calendar"
 import { MainList } from "@/components/main/main-list"
 import { useHttp } from "@/http/api"
 import { useQuery } from "@tanstack/react-query"

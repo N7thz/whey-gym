@@ -1,4 +1,4 @@
-import { MainCalendar } from "@/components/main/main-calendar"
+import { MainCalendar } from "@/components/calendar/main-calendar"
 import { ChangeView } from "@/components/change-view"
 import { MainList } from "@/components/main/main-list"
 import type { Metadata } from "next"
@@ -22,7 +22,7 @@ export default function Home({ params: { view } }: HomeParams) {
 	return (
 		<div className="flex-1 justify-center items-center p-6 space-y-4">
 			<ChangeView />
-			<MainLayout view={view}/>
+			<MainLayout view={view} />
 		</div>
 	)
 }
