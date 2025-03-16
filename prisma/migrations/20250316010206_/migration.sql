@@ -19,8 +19,9 @@ CREATE TABLE "users" (
 CREATE TABLE "trainings" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "made_in" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "obs" TEXT NOT NULL,
+    "obs" TEXT,
+    "made_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "user_id" TEXT NOT NULL,
 
     CONSTRAINT "trainings_pkey" PRIMARY KEY ("id")
@@ -32,6 +33,7 @@ CREATE TABLE "exercises" (
     "name" TEXT NOT NULL,
     "series" INTEGER NOT NULL,
     "reps" INTEGER NOT NULL,
+    "to_failure" BOOLEAN NOT NULL DEFAULT false,
     "training_id" TEXT,
 
     CONSTRAINT "exercises_pkey" PRIMARY KEY ("id")

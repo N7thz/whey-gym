@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
             status: error.statusCode
         })
 
-    const id = payload.sub.id 
+    const id = payload.sub.id
 
     const { trainings, count } = await trainingService.findManyByUserId(id)
 
@@ -32,16 +32,17 @@ export async function POST(request: NextRequest) {
 
     const { name, obs, exercises } = await request.json() as CreateTrainingProps
 
-    const { error, payload } = decodeToken(authorization)
+    const { error: decodeError, payload } = decodeToken(authorization)
 
-    if (error)
-        return NextResponse.json(error, {
-            status: error.statusCode
+    if (decodeError) return (
+        NextResponse.json(decodeError, {
+            status: decodeError.statusCode
         })
+    )
 
-    const id = payload.sub.id    
+    const id = payload.sub.id
 
-    const response = await trainingService.create({
+    const { error, newTraining } = await trainingService.create({
         name,
         obs,
         user: {
@@ -52,5 +53,11 @@ export async function POST(request: NextRequest) {
         createManyExerciseInput: exercises
     })
 
-    return NextResponse.json(response)
+    if (error) return (
+        NextResponse.json(error, {
+            status: error.statusCode
+        })
+    )
+
+    return NextResponse.json(newTraining)
 }

@@ -1,6 +1,6 @@
 import type { LucideIcon } from "lucide-react"
 import type { HttpStatus } from "./http-status"
-import type { Role, User } from "@prisma/client"
+import type { Role, User, Exercise, Training } from "@prisma/client"
 
 export type UUID = `${string}-${string}-${string}-${string}-${string}`
 
@@ -31,18 +31,6 @@ export type GetResponse<T> = {
     count: number;
 }
 
-export type Training = ({
-    exercises: {
-        id: string;
-        name: string;
-        series: number;
-        reps: number;
-        trainingId: string | null;
-    }[];
-} & {
-    id: string;
-    name: string;
-    madeIn: Date;
-    obs: string | null;
-    userId: string;
-})
+export type TrainingWithExercise = Training & { 
+    exercises: Exercise[] 
+}

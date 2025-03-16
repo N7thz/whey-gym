@@ -7,10 +7,28 @@ import {
 import { HttpStatus } from "@/@types/http-status"
 
 export function TrainingService() {
+
     const trainingRepository = TrainingRepository()
 
     async function create(data: CreateInput) {
-        return await trainingRepository.create(data)
+
+        const { name } = data
+
+        const training = await trainingRepository.findSameNameAndDay(name)
+
+        if (training) {
+
+            const error: Error = {
+                message: "Esse treino já foi adicionado a esse dia.",
+                statusCode: HttpStatus.CONFLICT
+            }
+
+            return { error }
+        }
+
+        const newTraining = await trainingRepository.create(data)
+
+        return { newTraining }
     }
 
     async function update({ id, data }: UpdateInput) {

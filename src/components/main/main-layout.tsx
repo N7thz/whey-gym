@@ -4,10 +4,10 @@ import { MainCalendar } from "@/components/main/main-calendar"
 import { MainList } from "@/components/main/main-list"
 import { useHttp } from "@/http/api"
 import { useQuery } from "@tanstack/react-query"
-import type { GetResponse, Training } from "@/@types"
+import type { GetResponse, TrainingWithExercise } from "@/@types"
 
 export type MainProps = {
-    data: GetResponse<Training> | undefined
+    data: GetResponse<TrainingWithExercise> | undefined
     isLoading: boolean
 }
 
@@ -20,15 +20,17 @@ export const MainLayout = ({ view }: { view: "calendar" | "list" }) => {
         queryFn: http.FindManyTrainigsByUserId,
     })
 
-    if (view === "calendar") {
-        return <MainCalendar
+    if (view === "calendar") return (
+        <MainCalendar
             data={data}
             isLoading={isLoading}
         />
-    }
+    )
 
-    return <MainList
-        data={data}
-        isLoading={isLoading}
-    />
+    return (
+        <MainList
+            data={data}
+            isLoading={isLoading}
+        />
+    )
 }

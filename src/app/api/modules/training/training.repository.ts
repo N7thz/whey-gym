@@ -10,6 +10,11 @@ export type UpdateInput = {
     data: Prisma.TrainingUpdateInput
 }
 
+export type FindSameNameAndDayInput = {
+    name: string,
+    date: Date
+}
+
 export function TrainingRepository() {
     const training = prisma.training
 
@@ -62,11 +67,35 @@ export function TrainingRepository() {
         })
     }
 
+    async function findSameNameAndDay(name: string) {
+
+        const date = new Date
+
+        const startOfDay = new Date(date)
+        startOfDay.setHours(0, 0, 0, 0)
+
+        const endOfDay = new Date(date)
+        endOfDay.setHours(23, 59, 59, 999)
+
+        return await training.findFirst({
+            where: {
+                name,
+                madeAt: {
+                    gte: startOfDay,
+                    lte: endOfDay,
+                }
+            }
+        })
+    }
+
     async function findManyByUserId(userId: string) {
 
         const trainings = await training.findMany({
             where: {
                 userId
+            },
+            orderBy: {
+                madeAt: "desc"
             },
             include: {
                 exercises: true,
@@ -88,6 +117,7 @@ export function TrainingRepository() {
         remove,
         findById,
         findByName,
+        findSameNameAndDay,
         findManyByUserId
     }
 }

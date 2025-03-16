@@ -31,7 +31,8 @@ export const CreateTrainingSchema = z.object({
 		.max(255, {
 			message: "Nome muito longo.",
 		})
-		.optional(),
+		.nullable()
+		.default(null),
 	exercises: z.array(CreateExerciseSchema)
 })
 

@@ -1,0 +1,2 @@
+id,email,password,image_url,is_active,create_at,updated_at,role
+2bd9ef41-3065-44c7-ab84-388d3a26c9de,nathan@gmail.com,$2b$06$jLWgYeIdzfl2EAEXeq6nAOMF5dLWznFTOmUb/p7JnT8L0Os2sJlM2,https://i.pinimg.com/736x/79/b4/ae/79b4aec1862e19d4b824cb181a51072c.jpg,true,2025-03-08 15:54:38.339,2025-03-09 12:10:46.208,CLIENT
