@@ -1,7 +1,6 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { ThemeProvider } from "@/providers/theme-provider"
-import { cn } from "@/lib/utils"
 import { QueryProvider } from "@/providers/query-provider"
 import { CurrentUserProvider } from "@/providers/user-provider"
 import "./globals.css"
@@ -31,10 +30,7 @@ export default function RootLayout({
       lang="pt-BR"
       suppressHydrationWarning
     >
-      <body className={cn(
-        `${geistSans.variable} ${geistMono.variable} antialiased`,
-        "min-h-dvh flex"
-      )}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

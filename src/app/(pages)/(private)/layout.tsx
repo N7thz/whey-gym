@@ -12,10 +12,12 @@ export default function PrivateLayout({ children }: PrivateLayoutProps) {
 	return (
 		<SidebarProvider defaultOpen={false}>
 			<AsideSidebar />
-			<main className="min-h-dvh w-full flex flex-col">
+			<div className="flex flex-col">
 				<Header />
-				{children}
-			</main>
+				<main className="h-[calc(100dvh-4.5rem)]">
+					{children}
+				</main>
+			</div>
 			<Toaster />
 		</SidebarProvider>
 	)
