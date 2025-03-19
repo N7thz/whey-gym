@@ -4,7 +4,8 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { NoDay } from "../no-day"
 import { DayCalendar } from "../day-calendar"
 import { useCalendar } from "../use-calendar"
-import { isSameDay } from "date-fns"
+import { isSameDay as useIsSameDay } from "date-fns"
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 
 export const MainCalendarContent = ({ data, isLoading }: MainProps) => {
 
@@ -20,26 +21,37 @@ export const MainCalendarContent = ({ data, isLoading }: MainProps) => {
 			className="w-full h-100 overflow-hidden"
 		>
 			<ScrollBar />
-			<CardContent className="size-full grid grid-cols-7 gap-2 py-3 pl-0">
-				{
-					days.map((day, index) =>
-						day
-							? trainings.map(({ id, madeAt, name }) => {
+			<Dialog>
+				<CardContent className="size-full grid grid-cols-7 gap-2 py-3 pl-0">
+					{
+						days.map((day, index) =>
+							day
+								? trainings.map(({ id, madeAt, name }) => {
 
-								const isSameDate = isSameDay(madeAt, day)
+									const isSameDay = useIsSameDay(madeAt, day)
 
-								return (
-									<DayCalendar
-										key={id}
-										day={day}
-										name={name}
-										isSameDate={isSameDate}
-									/>
-								)
-							})
-							: <NoDay key={index} />
-					)}
-			</CardContent>
+									return (
+										<div key={id}>
+											<DialogTrigger asChild>
+												<DayCalendar
+													day={day}
+													name={name}
+													isSameDay={isSameDay}
+												/>
+											</DialogTrigger>
+											<DialogContent>
+												<DialogTitle>
+													Hello word
+												</DialogTitle>
+											</DialogContent>
+										</div>
+									)
+								})
+								: <NoDay key={index} />
+						)}
+				</CardContent>
+
+			</Dialog>
 		</ScrollArea>
 	)
 }
