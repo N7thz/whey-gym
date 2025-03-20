@@ -6,12 +6,12 @@ import { MainCalendarContent } from "./main-calendar-content"
 export const MainCalendar = ({ data, isLoading }: MainProps) => {
 
 	return (
-		<Card className="size-full px-6">
+		<Card className="w-full h-11/12 px-6">
 			<MainCalendarHeader />
 			<MainCalendarContent
 				data={data}
 				isLoading={isLoading}
 			/>
-		</Card >
+		</Card>
 	)
 }

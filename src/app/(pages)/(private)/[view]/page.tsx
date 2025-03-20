@@ -20,7 +20,7 @@ export function generateMetadata({
 
 export default function Home({ params: { view } }: HomeParams) {
 	return (
-		<div className="justify-center items-center p-6 space-y-4">
+		<div className="flex-1 justify-center items-center p-6 space-y-4">
 			<ChangeView />
 			<MainLayout view={view} />
 		</div>

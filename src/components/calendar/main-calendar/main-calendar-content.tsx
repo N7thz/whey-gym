@@ -5,13 +5,16 @@ import { NoDay } from "../no-day"
 import { DayCalendar } from "../day-calendar"
 import { useCalendar } from "../use-calendar"
 import { isSameDay as useIsSameDay } from "date-fns"
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import {
+	Dialog, DialogContent, DialogTitle, DialogTrigger
+} from "@/components/ui/dialog"
+import { MainCalendarContentLoading } from "./main-calendar-content-loading"
 
 export const MainCalendarContent = ({ data, isLoading }: MainProps) => {
 
 	const { days } = useCalendar()
 
-	if (!data || isLoading) return <p>Carregando dados...</p>
+	if (!data || isLoading) return <MainCalendarContentLoading />
 
 	const { data: trainings } = data
 
