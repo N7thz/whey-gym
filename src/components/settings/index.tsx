@@ -8,16 +8,15 @@ import { Separator } from "@/components/ui/separator"
 import { useCurrentUser } from "@/providers/user-provider"
 import { DialogUpdateUser } from "./dialog-update-user"
 import { DialogremoveUser } from "./dialog-remove-user"
+import { Loading } from "./loading"
 
 export const Settings = () => {
 
     const { data: user, isLoading } = useCurrentUser()
 
-    if (!user || isLoading) return <p>Carregando...</p>
+    if (!user || isLoading) return <Loading />
 
-    const {
-        id, email, imageUrl, role
-    } = user
+    const { id, email, imageUrl, role } = user
 
     return (
         <div className="contents">

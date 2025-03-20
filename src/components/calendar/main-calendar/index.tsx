@@ -6,7 +6,7 @@ import { MainCalendarContent } from "./main-calendar-content"
 export const MainCalendar = ({ data, isLoading }: MainProps) => {
 
 	return (
-		<Card className="h-full px-6">
+		<Card className="size-full px-6">
 			<MainCalendarHeader />
 			<MainCalendarContent
 				data={data}

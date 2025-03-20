@@ -1,9 +1,10 @@
 import { Card } from "@/components/ui/card"
 import type { MainProps } from "./main-layout"
+import { MainListLoading } from "./main-list-loading"
 
 export const MainList = ({ data, isLoading }: MainProps) => {
 
-	if (!data || isLoading) return <p>Carregando...</p>
+	if (!data || isLoading) return <MainListLoading />
 
 	const { count, data: trainigs } = data
 

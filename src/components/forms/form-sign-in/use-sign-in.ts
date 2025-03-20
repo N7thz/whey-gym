@@ -5,8 +5,6 @@ import { useHttp } from "@/http/api"
 import { setCookie } from "cookies-next/client"
 import { useRouter } from "next/navigation"
 import { toast } from "@/components/toast"
-import type { Payload } from "@/@types"
-import jwt from "jsonwebtoken"
 
 export function useSignIn() {
 	const http = useHttp()

@@ -12,9 +12,9 @@ export default function PrivateLayout({ children }: PrivateLayoutProps) {
 	return (
 		<SidebarProvider defaultOpen={false}>
 			<AsideSidebar />
-			<div className="flex flex-col">
+			<div className="flex flex-col w-full">
 				<Header />
-				<main className="h-[calc(100dvh-4.5rem)]">
+				<main className="h-[calc(100dvh-4.5rem)] flex">
 					{children}
 				</main>
 			</div>

@@ -2,10 +2,9 @@
 
 import type { UserResponse } from "@/@types"
 import { useHttp } from "@/http/api"
-import { queryClient } from "@/lib/query-client"
 import { useQuery, type UseQueryResult } from "@tanstack/react-query"
 import { getCookie } from "cookies-next/client"
-import { type ReactNode, createContext, useContext, useEffect } from "react"
+import { type ReactNode, createContext, useContext } from "react"
 
 export type CurrentUserContextProps = UseQueryResult<UserResponse>
 
@@ -25,14 +24,6 @@ export function CurrentUserProvider({ children }: { children: ReactNode }) {
     })
 
     const value: CurrentUserContextProps = response
-
-    useEffect(() => {
-        if (response.status === "error") {
-            queryClient.invalidateQueries({ queryKey })
-        }
-    }, [response])
-
-
 
     return (
         <CurrentUserContext.Provider value={value}>
