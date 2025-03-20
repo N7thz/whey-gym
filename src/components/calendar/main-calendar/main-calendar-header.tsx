@@ -1,12 +1,17 @@
 import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { CalendarArrowDown, CalendarArrowUp } from "lucide-react"
-import { useCalendar } from "../use-calendar"
 import { DaysOfWeek } from "../days-of-week"
 
-export const MainCalendarHeader = () => {
+type MainCalendarHeader = { 
+	dateInString: string
+	prevMonth: () => void
+	nextMonth: () => void
+}
 
-	const { dateInString, prevMonth, nextMonth, } = useCalendar()
+export const MainCalendarHeader = ({ 
+	dateInString, nextMonth, prevMonth 
+}: MainCalendarHeader) => {
 
 	return (
 		<>

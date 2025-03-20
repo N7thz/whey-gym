@@ -36,7 +36,7 @@ export const DayCalendar = ({
             <div className="space-y-4">
                 {
                     isSameDay && (
-                        <Card className="py-2.5 mt-7 mx-1.5 rounded-sm">
+                        <Card className="py-2.5 mt-7 mx-1.5 rounded-sm cursor-pointer">
                             <CardHeader className="px-4">
                                 <CardTitle className="truncate">
                                     {name}
