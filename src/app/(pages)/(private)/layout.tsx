@@ -1,6 +1,6 @@
 import { SidebarProvider } from "@/components/ui/sidebar"
-import { AsideSidebar } from "@/components/sidebar/aside-sidebar"
-import { Header } from "@/components/header"
+import { AsideSidebar } from "@/components/template/sidebar/aside-sidebar"
+import { Header } from "@/components/template/header"
 import { Toaster } from "@/components/ui/sonner"
 import type { ReactNode } from "react"
 

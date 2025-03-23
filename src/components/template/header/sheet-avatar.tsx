@@ -10,8 +10,8 @@ import {
 	SheetTitle,
 	SheetTrigger,
 } from "@/components/ui/sheet"
-import { Avatar } from "../avatar"
-import { FormUploadImage } from "../forms/form-upload-image"
+import { Avatar } from "@/components/avatar"
+import { FormUploadImage } from "@/components/forms/form-upload-image"
 import { useHeader } from "./use-header"
 import { useRouter } from "next/navigation"
 

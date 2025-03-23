@@ -3,8 +3,8 @@ import {
 } from "@/components/ui/card"
 import { Avatar } from "@/components/avatar"
 import { Separator } from "@/components/ui/separator"
-import { Skeleton } from "../ui/skeleton"
-import { Button } from "../ui/button"
+import { Skeleton } from "@/components/ui/skeleton"
+import { Button } from "@/components/ui/button"
 import { Ellipsis } from "lucide-react"
 
 export const Loading = () => {

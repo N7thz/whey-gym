@@ -32,25 +32,28 @@ export function TrainingService() {
     }
 
     async function update({ id, data }: UpdateInput) {
+
+        const { error } = await validateId(id)
+
+        if (error) return { error }
+
         return await trainingRepository.update({ id, data })
     }
 
     async function remove(id: string) {
+
+        const { error } = await validateId(id)
+
+        if (error) return { error }
+
         await trainingRepository.remove(id)
     }
 
     async function findById(id: string) {
 
-        const training = await trainingRepository.findById(id)
+        const { error, training } = await validateId(id)
 
-        if (!training) {
-            const error: Error = {
-                message: "Não foi possivel encontrar o treino desejado.",
-                statusCode: HttpStatus.BAD_REQUEST,
-            }
-
-            return { error }
-        }
+        if (error) return { error }
 
         return { training }
     }
@@ -74,6 +77,22 @@ export function TrainingService() {
 
     async function findManyByUserId(userId: string) {
         return await trainingRepository.findManyByUserId(userId)
+    }
+
+    async function validateId(id: string) {
+
+        const training = await trainingRepository.findById(id)
+
+        if (!training) {
+            const error: Error = {
+                message: "Não foi possivel encontrar o treino desejado.",
+                statusCode: HttpStatus.BAD_REQUEST,
+            }
+
+            return { error }
+        }
+
+        return { training }
     }
 
     return {

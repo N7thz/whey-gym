@@ -1,4 +1,4 @@
-import type { MainProps } from "@/components/main/main-layout"
+import type { MainProps } from "@/components/template/main/main-layout"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { MainCalendarContentLoading } from "./main-calendar-content-loading"
 import { DialogCalendar } from "../dialog-calendar"

@@ -53,9 +53,10 @@ export function TrainingRepository() {
 
     async function findById(id: string) {
         return await training.findUnique({
-            where: {
-                id
-            },
+            where: { id },
+            include: {
+                exercises: true,
+            }
         })
     }
 

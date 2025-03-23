@@ -1,4 +1,4 @@
-import { Settings } from "@/components/settings"
+import { Settings } from "@/components/template/settings"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {

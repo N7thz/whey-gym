@@ -1,4 +1,4 @@
-import type { MainProps } from "@/components/main/main-layout"
+import type { MainProps } from "@/components/template/main/main-layout"
 import { Card } from "@/components/ui/card"
 import { MainCalendarHeader } from "./main-calendar-header"
 import { MainCalendarContent } from "./main-calendar-content"

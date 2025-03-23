@@ -11,7 +11,7 @@ import { UserRoundX } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useHttp } from "@/http/api"
 import { useCurrentUser } from "@/providers/user-provider"
-import { toast } from "../toast"
+import { toast } from "@/components/toast"
 import { signOut } from "@/functions/sign-out"
 import { useRouter } from "next/navigation"
 

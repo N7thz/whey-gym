@@ -12,7 +12,7 @@ export const DialogCalendarFooter = ({ id }: DialogCalendarFooterProps) => {
     <DialogFooter>
       <Button
         className="w-1/2"
-        onClick={() => push(`/trainigs/${id}`)}
+        onClick={() => push(`/trainings/${id}`)}
       >
         Editar Treino
       </Button>

@@ -7,7 +7,7 @@ import { Signin } from "./sign-in.api"
 import { UpdateUser } from "./update-user.api"
 import { UploadImage } from "./upload-image.api"
 import { FindUser } from "./find-user.api"
-import { FindManyTrainigsByUserId } from "./find-many-trainigs-by-user-id.api"
+import { FindManyTrainigsByUserId } from "./find-many-trainings-by-user-id.api"
 
 const token = getCookie("token")
 

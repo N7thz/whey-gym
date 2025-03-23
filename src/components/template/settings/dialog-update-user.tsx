@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/alert-dialog"
 import { UserRoundPen } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { FormUpdateUser } from "../forms/form-update-user"
+import { FormUpdateUser } from "@/components/forms/form-update-user"
 
 export const DialogUpdateUser = () => {
     return (

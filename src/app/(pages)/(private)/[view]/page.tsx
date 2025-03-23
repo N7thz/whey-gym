@@ -1,8 +1,6 @@
-import { MainCalendar } from "@/components/calendar/main-calendar"
 import { ChangeView } from "@/components/change-view"
-import { MainList } from "@/components/main/main-list"
+import { MainLayout } from "@/components/template/main/main-layout"
 import type { Metadata } from "next"
-import { MainLayout } from "@/components/main/main-layout"
 
 export type HomeParams = {
 	params: {

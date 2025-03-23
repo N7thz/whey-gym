@@ -2,7 +2,11 @@ import type { LucideIcon } from "lucide-react"
 import type { HttpStatus } from "./http-status"
 import type { Role, User, Exercise, Training } from "@prisma/client"
 
-export type UUID = `${string}-${string}-${string}-${string}-${string}`
+export type ContextProps = {
+    params: {
+        id: string
+    }
+}
 
 export type Error = {
     message: string
@@ -13,7 +17,7 @@ export type UserResponse = Pick<User, "id" | "email" | "imageUrl" | "role">
 
 export type Payload = {
     sub: {
-        id: UUID
+        id: string
         role: Role
     }
     iat: number
